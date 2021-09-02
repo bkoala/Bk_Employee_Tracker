@@ -1,0 +1,24 @@
+{
+  "name": "bk_employee_tracker",
+  "version": "1.0.0",
+  "description": "Tracks employees",
+  "main": "index.js",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bkoala/Bk_Employee_Tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bkoala/Bk_Employee_Tracker/issues"
+  },
+  "homepage": "https://github.com/bkoala/Bk_Employee_Tracker#readme"
+}
