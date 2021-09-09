@@ -5,11 +5,17 @@
   "main": "index.js",
   "dependencies": {
     "console.table": "^0.10.0",
-    "inquirer": "^8.1.2"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "inquirer": "^8.1.2",
+    "mysql2": "^2.3.0",
+    "promise-mysql": "^5.0.3",
+    "promise-mysql2": "^1.0.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "inspect": "node -- inspect index.js"
   },
   "repository": {
     "type": "git",

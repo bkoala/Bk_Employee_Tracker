@@ -1,42 +1,116 @@
-class noteSql {
-    constructor() {
-     // this.lastId = 0;
+//Employee Class
+class employee {
+    constructor(first_name, last_name,role_id,manager_id) {
+      this.first_name=first_name;
+      this.last_name=last_name;
+      this.role_id=role_id;
+      this.manager_id=manager_id;
     }
 /*
     view all departments (name and Ids), 
     view all roles, 
     view all employees, 
     add a department,
-     add a role, 
-     add an employee,
-      update an employee role
-      * Update employee managers.
+    Update employee managers.
+    Upade employee role
+View employees by manager.
+View employees by department.
+Delete departments, roles, and employees.
 
-* View employees by manager.
-
-* View employees by department.
-
-* Delete departments, roles, and employees.
-
-* View the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department.
 */
-//View all departments
+//View all Employees
+viewAllemployees(){
+  const sql = `SELECT employee.id,employee.first_name,employee.last_name,role.title,role.salary,department.name,employee.manager_id  FROM employee  
+    INNER JOIN role on role.id=employee.role_id
+    INNER JOIN department on role.department_id=department.id
+    `; 
+  return sql;
+}
+
+//View employees by manager.
+
+viewEmployeebyManager(xx){
+  const sql = `SELECT * FROM employee WHERE manager_id= '${xx}'`; 
+  return sql;
+
+}
+//View Employees by Department
+
+viewEmployeebyDepartment(xx){
+  const sql = `SELECT * FROM employee WHERE  role_id IN ( SELECT id FROM role WHERE department_id = '${xx}')`; 
+  return sql;
+}
+// Add an employee
+addEmployee(){
+  const sql = `INSERT INTO employee(first_name,last_name,role_id) VALUES (' ${this.firt_name}',' ${this.last_name}',' ${this.role_id}')`; 
+  return sql;
+}
+//Update employee managers
+updateManager(xx,yy){
+  const sql = `UPDATE employee SET manager_id = '${xx}'  WHERE id ='${yy}'`; 
+  return sql;
+}
+//Update employee Role
+updateRole(xx,yy){
+  const sql = `UPDATE employee SET role_id = '${xx}'  WHERE id ='${yy}'`; 
+  return sql;
+}
+};
+//Department Class
+class deparTment {
+  constructor(name) {
+    this.name=name;
+  }
+  //View all departments
 viewAlldepartments(){
-  const sql = `SELECT *  FROM departments`; 
-  db.query(sql, (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-       return;
+  const sql = `SELECT *  FROM department`; 
+ return sql;
+}
+//Add a department
+addDepartment(){
+  const sql = `INSERT INTO department(name) VALUES ('${this.name}')`; 
+  return sql;
+}
+
+//Delete department
+deleteDepartment(){
+  const sql = `DELETE FROM department WHERE name= '${this.name}'`; 
+  return sql;
+}
+
+};
+//Role Class
+/*
+ title VARCHAR(30) NOT NULL,
+    salary DECIMAL NOT NULL,
+    department_id INT,
+     add a role, 
+     delete Role
+*/
+class roLe {
+  constructor(title,salary,department_id) {
+    this.name=title;
+    this.salary=salary;
+    this.department_id=department_id;
+  }
+ //View all Roles
+viewAllroles(){
+  const sql = `SELECT *  FROM role`; 
+  return sql;
+}
+//Add a Role 
+  addRole(){ 
+      const sql = `INSERT INTO role(title,salary,department_id) VALUES (' ${this.name}',' ${this.salary}',' ${this.department_id}')`; 
+      return sql;
     }
-    res.json({
-      message: 'success',
-      data: rows
-    });
-  });
+//Delete a role
+deleteRole(){
+  const sql = `DELETE FROM role WHERE title= '${this.title}'`; 
+  return sql;
 }
 
 
-}
+};
 
 
-module.exports = new noteSql();
+module.exports = {employee,deparTment,roLe};
