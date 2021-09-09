@@ -55,6 +55,12 @@ updateRole(xx,yy){
   const sql = `UPDATE employee SET role_id = '${xx}'  WHERE id ='${yy}'`; 
   return sql;
 }
+
+//Delete Employee
+deleteEmployee(xx,yy){
+  const sql = `DELETE FROM employee WHERE first_name= '${xx}' and last_name= '${yy}'`; 
+  return sql;
+}
 };
 //Department Class
 class deparTment {
@@ -73,8 +79,8 @@ addDepartment(){
 }
 
 //Delete department
-deleteDepartment(){
-  const sql = `DELETE FROM department WHERE name= '${this.name}'`; 
+deleteDepartment(xx){
+  const sql = `DELETE FROM department WHERE name= '${xx}'`; 
   return sql;
 }
 
@@ -104,8 +110,8 @@ viewAllroles(){
       return sql;
     }
 //Delete a role
-deleteRole(){
-  const sql = `DELETE FROM role WHERE title= '${this.title}'`; 
+deleteRole(xx){
+  const sql = `DELETE FROM role WHERE title= '${xx}'`; 
   return sql;
 }
 

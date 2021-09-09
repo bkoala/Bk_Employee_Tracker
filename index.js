@@ -312,9 +312,37 @@ function getAnswers() {
             //End of option
           }
           else if (answers.userChoice === "view employees by department"){ 
+            //View of employees by department
+            var sql12="Select name from department";
+            db.query(sql12,function(err, result) {
+              if(err){console.log(err);}
+              Object.keys(result).forEach(function(key) {
+                var row = result[key];
+                var theName=row.name;
+                theChoices.push(theName);              
+                });
+               //Update questions
+               const questions = [
+                { type: 'rawlist',
+                  name: 'empDpt',
+                  message: "Which department employees do you want to see?",
+                  choices:theChoices,
+                },]
+                return inquirer.prompt(questions).then((answers) => {
+              
+                  var sql16=`select id from department WHERE name='${answers.empDpt}'`;
+                  db.query(sql16,function(err, results) {
+                    if(err){console.log(err);}
+                    results=results[0].id;
+                  const sqlN=new noteSql.employee("a","b",1);
+                  sql=sqlN.viewEmployeebyDepartment(parseInt(results));
+                  show_results(sql,db,1);
+                });
+              });
+
+              })
             
-            
-            
+            //End of option
           }
           else if (answers.userChoice === "exit"){ 
             //Kill Process 
