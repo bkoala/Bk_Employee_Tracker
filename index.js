@@ -168,7 +168,7 @@ function getAnswers() {
               show_results(sql,db,4);
             });
           });
-        })
+        })//End of option
           }
           else if (answers.userChoice === "update employee role"){
           //Update Employee role
@@ -280,13 +280,13 @@ function getAnswers() {
           //End of update
           }
           else if (answers.userChoice === "view employees by manager"){ 
-            var sql12="Select * from employee WHERE manager_id IS NOT NULL";
+            var sql12="Select * from employee WHERE id IN ( SELECT manager_id FROM employee WHERE manager_id IS NOT NULL)";
             db.query(sql12,function(err, result) {
               if(err){console.log(err);}
               Object.keys(result).forEach(function(key) {
                 var row = result[key];
                 var theName=row.first_name +" " + row.last_name;
-                theChoices.push(theName);
+                theChoices.push(theName);              
                 });
                //Update questions
                const questions = [
@@ -295,12 +295,27 @@ function getAnswers() {
                   message: "Which manager employees do you want to see?",
                   choices:theChoices,
                 },]
-    
+                return inquirer.prompt(questions).then((answers) => {
+                  var fName1=answers.empManager;
+                  var fN1=fName1.split(" ")[0]; var lN1=fName1.split(" ")[1];
+                  var sql16=`select id from employee WHERE (first_name='${fN1}' AND last_name='${lN1}')`;
+                  db.query(sql16,function(err, results) {
+                    if(err){console.log(err);}
+                    results=results[0].id;
+                  const sqlN=new noteSql.employee("a","b",1);
+                  sql=sqlN.viewEmployeebyManager(parseInt(results));
+                  show_results(sql,db,1);
+                });
+              });
 
               })
             //End of option
           }
-          else if (answers.userChoice === "view employees by department"){ xcount=10;}
+          else if (answers.userChoice === "view employees by department"){ 
+            
+            
+            
+          }
           else if (answers.userChoice === "exit"){ 
             //Kill Process 
             process.kill(process.pid, 'SIGTERM')
