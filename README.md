@@ -19,6 +19,6 @@ he is  prompted to enter the employee’s first name, last name, role, and manag
 ##
 The user could choose to update an employee role, employee manager and also delete employee, roles and department from the database.
 
-Application Page Link :https://bkoala.github.io/Bk_Employee_Rracker/
+Application Page Link :https://github.com/bkoala/Bk_Employee_Tracker
 
 Demo Video Link: https://drive.google.com/file/d/1IPXDTbMasdMHz7Tasjfj8rURkgeSnf2L/view
