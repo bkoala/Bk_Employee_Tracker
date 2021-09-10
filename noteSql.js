@@ -20,13 +20,14 @@ Delete departments, roles, and employees.
 */
 //View all Employees
 viewAllemployees(){
-  const sql = `SELECT e.id as employee_id, e.first_name, e.last_name, r.title, r.salary,
-   e2.first_name as manager_first_name, e2.last_name as manager_last_name, d.name as department
+   //View all employees
+    const sql = `SELECT e.id as Id , e.first_name as First_name, e.last_name as Last_name, r.title as Title, r.salary as Salary,
+   CONCAT( e2.first_name ,' ' , e2.last_name) as Manager, d.name as Department
   FROM employee e
   JOIN role r on e.role_id = r.id
   JOIN department d on r.department_id = d.id
-  LEFT JOIN employee e2 on e.manager_id = e2.id
-    `; 
+  LEFT JOIN employee e2 on e.manager_id = e2.id`;
+
   return sql;
 }
 
@@ -44,7 +45,7 @@ viewEmployeebyDepartment(xx){
 }
 // Add an employee
 addEmployee(){
-  const sql = `INSERT INTO employee(first_name,last_name,role_id) VALUES (' ${this.firt_name}',' ${this.last_name}',' ${this.role_id}')`; 
+  const sql = `INSERT INTO employee(first_name,last_name,role_id) VALUES ('${this.first_name}','${this.last_name}','${this.role_id}')`; 
   return sql;
 }
 //Update employee managers
@@ -116,7 +117,6 @@ deleteRole(xx){
   const sql = `DELETE FROM role WHERE title= '${xx}'`; 
   return sql;
 }
-
 
 };
 
