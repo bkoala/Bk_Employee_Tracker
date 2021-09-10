@@ -14,9 +14,9 @@ VALUES ("Salesperson",80000,1),
        ("Software Engineer", 100000,2);
 
 INSERT INTO employee(first_name,last_name,role_id) 
-VALUES ("Mike","Chan",2,),
-        ("Papa","John",3,),
-        ("Tom","Levalier",4,),
-        ("Amanda","King",4,),
-        ( "Sarah","Lourd",5,),
-        ("Anah","Loka",6,);
+VALUES ("Mike","Chan",2),
+        ("Papa","John",3),
+        ("Tom","Levalier",4),
+        ("Amanda","King",4),
+        ( "Sarah","Lourd",5),
+        ("Anah","Loka",6);

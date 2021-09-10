@@ -61,7 +61,8 @@ function getAnswers() {
         type: 'rawlist',
         name: 'userChoice',
         message: 'What would you like to do?',
-        choices: ['View all departments','View all roles','View all employees','Add department', 'Add Role', 'Add Employee','Update Employee role','Update Employee Manager','View Employees by Manager','View employees by Department','Exit'],
+        choices: ['View all departments','View all roles','View all employees','Add department', 'Add Role', 'Add Employee','Update Employee role','Update Employee Manager',
+        'View Employees by Manager','View employees by Department','Delete department','Delete employee','Delete role','Exit'],
         filter(val) {
           return (val.toLowerCase());
         },
@@ -341,7 +342,84 @@ function getAnswers() {
               });
 
               })
+            //End of option
+          }
+          else if (answers.userChoice === "delete employee"){ 
+               //View of employees by department
+            var sql12="Select * from employee";
+            db.query(sql12,function(err, result) {
+              if(err){console.log(err);}
+              Object.keys(result).forEach(function(key) {
+                var row = result[key];
+                var theName=row.first_name +" " + row.last_name;
+                theChoices.push(theName);              
+                });
+               //Update questions
+               const questions = [
+                { type: 'rawlist',
+                  name: 'empName',
+                  message: "Which employee do you want to delete?",
+                  choices:theChoices,
+                },]
+                return inquirer.prompt(questions).then((answers) => {
+                  var fName1=answers.empName;
+                  var fN1=fName1.split(" ")[0]; var lN1=fName1.split(" ")[1]; 
+                  const sqlN=new noteSql.employee("a","b",1);
+                  sql=sqlN.deleteEmployee(fN1,lN1);
+                  show_results(sql,db,9);
+                });
+              });
+            //End of option
+          }
+          else if (answers.userChoice === "delete department"){ 
+           //Delete a department
+            var sql12="Select name from department";
+            db.query(sql12,function(err, result) {
+              if(err){console.log(err);}
+              Object.keys(result).forEach(function(key) {
+                var row = result[key];
+                var theName=row.name;
+                theChoices.push(theName);              
+                });
+               //Update questions
+               const questions = [
+                { type: 'rawlist',
+                  name: 'dptName',
+                  message: "Which department do you want to delete?",
+                  choices:theChoices,
+                },]
+                return inquirer.prompt(questions).then((answers) => { 
+                  const sqlN=new noteSql.deparTment("a");
+                  sql=sqlN.deleteEmployee(answers.dptName);
+                  show_results(sql,db,10);
+                });
+              });
+            //End of option
             
+          }
+          else if (answers.userChoice === "delete role"){ 
+             //Delete a department
+            var sql12="Select title from role";
+            db.query(sql12,function(err, result) {
+              if(err){console.log(err);}
+              Object.keys(result).forEach(function(key) {
+                var row = result[key];
+                var theName=row.title;
+                theChoices.push(theName);              
+                });
+               //Update questions
+               const questions = [
+                { type: 'rawlist',
+                  name: 'dptTitle',
+                  message: "Which role do you want to delete?",
+                  choices:theChoices,
+                },]
+                return inquirer.prompt(questions).then((answers) => { 
+                  const sqlN=new noteSql.role("a",20,1);
+                  sql=sqlN.deleteRole(answers.dptTitle);
+                  show_results(sql,db,11);
+                });
+              });
             //End of option
           }
           else if (answers.userChoice === "exit"){ 
@@ -360,6 +438,9 @@ function show_results(sql,db,xx) {
     else if(xx===4){console.log("An employee was added to the database") ;}
     else if(xx===7){console.log("An employee role was updated") ;}
     else if(xx===8){console.log("An employee manager's was updated") ;}
+    else if(xx===9){console.log("An employee was deleted") ;}
+    else if(xx===10){console.log("An department was deleted") ;}
+    else if(xx===11){console.log("An role was deleted") ;}
     else{
     console.table(results); // results contains rows returned by server
     }
