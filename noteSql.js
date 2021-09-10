@@ -6,7 +6,7 @@ class employee {
       this.role_id=role_id;
       this.manager_id=manager_id;
     }
-/*
+/* Menu information
     view all departments (name and Ids), 
     view all roles, 
     view all employees, 
@@ -20,9 +20,12 @@ Delete departments, roles, and employees.
 */
 //View all Employees
 viewAllemployees(){
-  const sql = `SELECT employee.id,employee.first_name,employee.last_name,role.title,role.salary,department.name,employee.manager_id  FROM employee  
-    INNER JOIN role on role.id=employee.role_id
-    INNER JOIN department on role.department_id=department.id
+  const sql = `SELECT e.id as employee_id, e.first_name, e.last_name, r.title, r.salary,
+   e2.first_name as manager_first_name, e2.last_name as manager_last_name, d.name as department
+  FROM employee e
+  JOIN role r on e.role_id = r.id
+  JOIN department d on r.department_id = d.id
+  LEFT JOIN employee e2 on e.manager_id = e2.id
     `; 
   return sql;
 }
@@ -32,7 +35,6 @@ viewAllemployees(){
 viewEmployeebyManager(xx){
   const sql = `SELECT * FROM employee WHERE manager_id= '${xx}'`; 
   return sql;
-
 }
 //View Employees by Department
 

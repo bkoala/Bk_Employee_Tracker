@@ -374,7 +374,7 @@ function getAnswers() {
           else if (answers.userChoice === "delete department"){ 
            //Delete a department
             var sql12="Select name from department";
-            db.query(sql12,function(err, result) {
+            db.query(sql12, function(err, result) {
               if(err){console.log(err);}
               Object.keys(result).forEach(function(key) {
                 var row = result[key];
@@ -390,7 +390,7 @@ function getAnswers() {
                 },]
                 return inquirer.prompt(questions).then((answers) => { 
                   const sqlN=new noteSql.deparTment("a");
-                  sql=sqlN.deleteEmployee(answers.dptName);
+                  sql=sqlN.deleteDepartment(answers.dptName);
                   show_results(sql,db,10);
                 });
               });
@@ -415,7 +415,7 @@ function getAnswers() {
                   choices:theChoices,
                 },]
                 return inquirer.prompt(questions).then((answers) => { 
-                  const sqlN=new noteSql.role("a",20,1);
+                  const sqlN=new noteSql.roLe("a",20,1);
                   sql=sqlN.deleteRole(answers.dptTitle);
                   show_results(sql,db,11);
                 });
