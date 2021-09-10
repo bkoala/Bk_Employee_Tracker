@@ -421,7 +421,7 @@ function getAnswers() {
                 });
               });
             //End of option
-          }
+          }          
           else if (answers.userChoice === "exit"){ 
             //Kill Process 
             process.kill(process.pid, 'SIGTERM')

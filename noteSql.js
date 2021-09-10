@@ -43,6 +43,8 @@ viewEmployeebyDepartment(xx){
   const sql = `SELECT * FROM employee WHERE  role_id IN ( SELECT id FROM role WHERE department_id = '${xx}')`; 
   return sql;
 }
+//
+
 // Add an employee
 addEmployee(){
   const sql = `INSERT INTO employee(first_name,last_name,role_id) VALUES ('${this.first_name}','${this.last_name}','${this.role_id}')`; 
